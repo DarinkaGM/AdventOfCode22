@@ -1,20 +1,26 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 public class CaloriesCounter {
     private Map<Elf, List<Integer>> elfCalories = new HashMap<Elf, List<Integer>>();
     private Map<Elf, Integer> elfSum = new HashMap<Elf, Integer>();
+    private List<Entry<Elf, Integer>> l;
+
     private int c = 1;
 
     public void readInput() {
         try {
-            Scanner s = new Scanner(new FileReader("/Users/darinka/Desktop/Day1/src/input.txt"));
-            Scanner s2 = new Scanner(new FileReader("/Users/darinka/Desktop/Day1/src/input.txt"));
+            Scanner s = new Scanner(new FileReader(
+                    "/Users/darinka/AdventOfCode22/Day1/src/input.txt"));
+            Scanner s2 = new Scanner(new FileReader(
+                    "/Users/darinka/AdventOfCode22/Day1/src/input.txt"));
             String line = s2.nextLine();
             int c1 = s.nextInt();
             List<Integer> listOfCal = new ArrayList<Integer>();
@@ -34,7 +40,6 @@ public class CaloriesCounter {
                     c1 = s.nextInt();
                 }
             }
-
             s.close();
             s2.close();
         } catch (FileNotFoundException e) {
@@ -63,10 +68,24 @@ public class CaloriesCounter {
         return max;
     }
 
-    public static void main(String[] args) {
-        CaloriesCounter cc = new CaloriesCounter();
-        cc.readInput();
-        cc.getSum();
-        cc.getMaxSum();
+    public void sortDescending() {
+        l = new ArrayList<>(elfSum.entrySet());
+        l.sort(Entry.comparingByValue(Comparator.reverseOrder()));
+    }
+
+    public int getTopThreeSum() {
+        sortDescending();
+        int sum = 0;
+        int count = 0;
+
+        for (Map.Entry<Elf, Integer> it : l) {
+            if (count < 3) {
+                sum += it.getValue();
+                ++count;
+            } else {
+                break;
+            }
+        }
+        return sum;
     }
 }
