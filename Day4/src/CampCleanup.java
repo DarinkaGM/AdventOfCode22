@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -32,18 +33,18 @@ public class CampCleanup {
                 }
             }
             if (c == 2) {
-                Set<Integer> temp = new HashSet<Integer>();
-                Set<Integer> temp2 = new HashSet<Integer>();
-                temp.addAll(e1);
-                temp2.addAll(e2);
-                e1.retainAll(e2);
-                e2.retainAll(e1);
                 if (pt1) {
+                    Set<Integer> temp = new HashSet<Integer>();
+                    Set<Integer> temp2 = new HashSet<Integer>();
+                    temp.addAll(e1);
+                    temp2.addAll(e2);
+                    e1.retainAll(e2);
+                    e2.retainAll(e1);
                     if (e1.equals(temp) || e2.equals(temp2)) {
                         x++;
                     }
                 } else {
-                    if (e1.size() >= 1 || e2.size() >= 1) {
+                    if (!Collections.disjoint(e1, e2)) {
                         x++;
                     }
                 }
