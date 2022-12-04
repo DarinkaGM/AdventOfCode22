@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CampCleanup {
     private Set<Integer> e1 = new HashSet<Integer>();
@@ -34,13 +35,8 @@ public class CampCleanup {
             }
             if (c == 2) {
                 if (pt1) {
-                    Set<Integer> temp = new HashSet<Integer>();
-                    Set<Integer> temp2 = new HashSet<Integer>();
-                    temp.addAll(e1);
-                    temp2.addAll(e2);
-                    e1.retainAll(e2);
-                    e2.retainAll(e1);
-                    if (e1.equals(temp) || e2.equals(temp2)) {
+                    if ((e1.stream().allMatch(e2::contains))
+                            || (e2.stream().allMatch(e1::contains))) {
                         x++;
                     }
                 } else {
