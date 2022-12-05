@@ -43,7 +43,6 @@ public class CampCleanup {
                         x++;
                     }
                 }
-
                 c = 0;
                 e1.clear();
                 e2.clear();
